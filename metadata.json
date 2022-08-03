@@ -1,0 +1,16 @@
+{
+  "name": "halyard-loki",
+  "version": "0.0.1",
+  "author": "Les Aker",
+  "license": "MIT",
+  "summary": "Configure loki instance",
+  "source": "https://github.com/halyard/puppet-loki",
+  "project_page": "https://github.com/halyard/puppet-loki",
+  "issues_url": "https://github.com/halyard/puppet-loki/issues",
+  "dependencies": [
+
+  ],
+  "operatingsystem_support": [
+
+  ]
+}
