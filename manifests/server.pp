@@ -17,7 +17,7 @@ class loki::server (
   package { 'loki': }
 
   -> file { '/etc/loki/loki.yaml':
-    ensure => file,
+    ensure   => file,
     contents => template('loki/loki.yaml.erb'),
   }
 
