@@ -37,7 +37,7 @@ class loki::server (
   }
 
   nginx::site { $web_hostname:
-    proxy_target       => 'http://localhost:3100'
+    proxy_target       => 'http://localhost:3100',
     tls_challengealias => $web_tls_challengealias,
     tls_account        => $web_tls_account,
   }
