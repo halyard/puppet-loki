@@ -1,6 +1,7 @@
 # @summary Configure Promtail client
 #
 # @param server sets the server address for Loki
+# @param password sets the promtail user password to submit logs
 class loki::client (
   String $server,
 ) {
