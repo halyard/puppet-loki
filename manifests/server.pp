@@ -17,8 +17,8 @@ class loki::server (
   package { 'loki': }
 
   -> file { '/etc/loki/loki.yaml':
-    ensure   => file,
-    contents => template('loki/loki.yaml.erb'),
+    ensure  => file,
+    content => template('loki/loki.yaml.erb'),
   }
 
   -> file { ['/var/lib/loki', '/var/lib/loki/index', '/var/lib/loki/chunks']:
