@@ -4,6 +4,7 @@
 # @param password sets the promtail user password to submit logs
 class loki::client (
   String $server,
+  String $password,
 ) {
   package { 'promtail': }
 
