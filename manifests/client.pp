@@ -13,7 +13,7 @@ class loki::client (
     content => template('loki/promtail.yaml.erb'),
   }
 
-  -> service { 'promtail':
+  ~> service { 'promtail':
     ensure => running,
     enable => true,
   }
