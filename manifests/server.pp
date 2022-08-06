@@ -8,7 +8,7 @@ class loki::server (
   String $tls_account,
   Optional[String] $tls_challengealias = undef,
 ) {
-  package { 'loki': }
+  package { ['loki', 'logcli']: }
 
   -> file { '/etc/loki/loki.yaml':
     ensure  => file,
