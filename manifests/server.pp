@@ -23,6 +23,7 @@ class loki::server (
 
   -> file { ['/var/lib/loki', '/var/lib/loki/index', '/var/lib/loki/chunks', '/var/lib/loki/wal']:
     ensure => directory,
+    owner  => 'loki',
   }
 
   -> service { 'loki':
