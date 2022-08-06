@@ -21,7 +21,7 @@ class loki::server (
     content => template('loki/loki.yaml.erb'),
   }
 
-  -> file { ['/var/lib/loki', '/var/lib/loki/index', '/var/lib/loki/chunks']:
+  -> file { ['/var/lib/loki', '/var/lib/loki/index', '/var/lib/loki/chunks', '/var/lib/loki/wal']:
     ensure => directory,
   }
 
