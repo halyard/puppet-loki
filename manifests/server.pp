@@ -36,6 +36,6 @@ class loki::server (
     users              => {
       'grafana'  => $grafana_password,
       'promtail' => $promtail_password,
-    }
+    },
   }
 }
