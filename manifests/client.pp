@@ -2,9 +2,11 @@
 #
 # @param server sets the server address for Loki
 # @param password sets the promtail user password to submit logs
+# @param logpaths sets additional directories to pull logs from
 class loki::client (
   String $server,
   String $password,
+  Hash[String, String] $logpaths = {},
 ) {
   package { 'promtail': }
 

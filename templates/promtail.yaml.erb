@@ -28,9 +28,13 @@ scrape_configs:
     - source_labels:
       - __journal_syslog_identifier
       target_label: syslog_identifier
-- job_name: system
+- job_name: pacman
   static_configs:
   - labels:
-      __path__: /var/log/pacman.log
+    __path__: /var/log/pacman.log
+<% @logpaths.each do |name, path| -%>
+- job_name: <%= name %>
+  static_configs:
   - labels:
-      __path__: /var/log/nginx/*.log
+    __path__: <%= path %>
+<% end -%>
