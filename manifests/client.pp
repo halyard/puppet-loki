@@ -22,18 +22,26 @@ class loki::client (
     enable => true,
   }
 
-  $syslog_sources.each |String $source| {
-    firewall { "100 allow syslog tcp input from ${source}":
-      dport  => 1514,
-      source => $source,
-      proto  => 'tcp',
-      action => 'accept',
+  if $syslog_sources.length > 0 {
+    $syslog_sources.each |String $source| {
+      firewall { "100 allow syslog udp input from ${source}":
+        dport  => 514,
+        source => $source,
+        proto  => 'udp',
+        action => 'accept',
+      }
     }
-    firewall { "100 allow syslog udp input from ${source}":
-      dport  => 1514,
-      source => $source,
-      proto  => 'udp',
-      action => 'accept',
+
+    package { 'syslog-ng': }
+
+    -> file { '/etc/syslog-ng/syslog-ng.conf':
+      ensure => file,
+      source => 'puppet:///modules/loki/syslog-ng.conf',
+    }
+
+    ~> service { 'syslog-ng@default':
+      ensure => running,
+      enable => true,
     }
   }
 }
