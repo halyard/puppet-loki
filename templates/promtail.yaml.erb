@@ -31,12 +31,14 @@ scrape_configs:
 - job_name: pacman
   static_configs:
     - labels:
+        nodename: <%= @facts['networking']['hostname'] %>
         job: pacman
         __path__: /var/log/pacman.log
 <% @logpaths.each do |name, path| -%>
 - job_name: <%= name %>
   static_configs:
     - labels:
+        nodename: <%= @facts['networking']['hostname'] %>
         job: <%= name %>
         __path__: <%= path %>
 <% end -%>
