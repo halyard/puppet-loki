@@ -51,12 +51,12 @@ class loki::server (
 
   if $backup_target != '' {
     backup::repo { 'loki':
-      source         => '/var/lib/loki',
-      target         => $backup_target,
-      watchdog_url   => $backup_watchdog,
-      password       => $backup_password,
-      environment    => $backup_environment,
-      rclone_options => $backup_rclone,
+      source        => '/var/lib/loki',
+      target        => $backup_target,
+      watchdog_url  => $backup_watchdog,
+      password      => $backup_password,
+      environment   => $backup_environment,
+      rclone_config => $backup_rclone,
     }
   }
 }
