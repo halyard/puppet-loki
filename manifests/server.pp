@@ -10,6 +10,7 @@
 # @param backup_password sets the encryption key for backup snapshots
 # @param backup_environment sets the env vars to use for backups
 # @param backup_rclone sets the config for an rclone backend
+# @param backup_args sets extra parameters to pass to restic
 class loki::server (
   String $hostname,
   String $tls_account,
@@ -21,6 +22,7 @@ class loki::server (
   Optional[String] $backup_password = undef,
   Optional[Hash[String, String]] $backup_environment = undef,
   Optional[String] $backup_rclone = undef,
+  Optional[Array[String]] $backup_args = undef
 ) {
   package { ['loki', 'logcli']: }
 
@@ -57,6 +59,7 @@ class loki::server (
       password      => $backup_password,
       environment   => $backup_environment,
       rclone_config => $backup_rclone,
+      args          => $backup_args,
     }
   }
 }
