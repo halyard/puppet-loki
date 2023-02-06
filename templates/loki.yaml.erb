@@ -37,7 +37,11 @@ storage_config:
   filesystem:
     directory: /var/lib/loki/chunks
 
+compactor:
+  retention_enabled: <%= @retention_enabled %>
+
 limits_config:
   enforce_metric_name: false
   reject_old_samples: true
   reject_old_samples_max_age: 168h
+  retention_period: <%= @retention_period %>

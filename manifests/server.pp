@@ -4,6 +4,8 @@
 # @param tls_account is the account details for requesting the TLS cert
 # @param grafana_password is the password for grafana to access logs
 # @param promtail_password is the password for promtail to submit logs
+# @param retention_enabled controls whether the server evicts old data
+# @param retention_period sets how long to keep data before eviction
 # @param tls_challengealias is the domain to use for TLS cert validation
 # @param backup_target sets the target repo for backups
 # @param backup_watchdog sets the watchdog URL to confirm backups are working
@@ -16,6 +18,8 @@ class loki::server (
   String $tls_account,
   String $grafana_password,
   String $promtail_password,
+  Boolean $retention_enabled = false,
+  String $retention_period = '90d',
   Optional[String] $tls_challengealias = undef,
   Optional[String] $backup_target = undef,
   Optional[String] $backup_watchdog = undef,
