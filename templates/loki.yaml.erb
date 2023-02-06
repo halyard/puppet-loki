@@ -37,6 +37,11 @@ storage_config:
   filesystem:
     directory: /var/lib/loki/chunks
 
+<% if @retention_enabled -%>
+chunk_store_config:
+  max_look_back_period: <%= @retention_period %>
+<% end -%>
+
 table_manager:
   retention_deletes_enabled: <%= @retention_enabled %>
   retention_period: <%= @retention_period %>
