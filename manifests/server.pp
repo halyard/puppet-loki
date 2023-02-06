@@ -35,6 +35,11 @@ class loki::server (
     owner  => 'loki',
   }
 
+  -> file { '/etc/systemd/system/loki.service':
+    ensure => file,
+    source => 'puppet:///modules/loki/loki.service',
+  }
+
   -> file { '/etc/loki/loki.yaml':
     ensure  => file,
     content => template('loki/loki.yaml.erb'),
