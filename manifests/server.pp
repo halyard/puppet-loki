@@ -19,7 +19,7 @@ class loki::server (
   String $grafana_password,
   String $promtail_password,
   Boolean $retention_enabled = false,
-  String $retention_period = '90d',
+  String $retention_period = '91d',
   Optional[String] $tls_challengealias = undef,
   Optional[String] $backup_target = undef,
   Optional[String] $backup_watchdog = undef,
