@@ -30,17 +30,17 @@ class loki::server (
 ) {
   package { ['loki', 'logcli']: }
 
-  -> file { '/etc/loki/loki.yaml':
-    ensure  => file,
-    content => template('loki/loki.yaml.erb'),
-  }
-
   -> file { ['/var/lib/loki', '/var/lib/loki/index', '/var/lib/loki/chunks', '/var/lib/loki/wal']:
     ensure => directory,
     owner  => 'loki',
   }
 
-  -> service { 'loki':
+  -> file { '/etc/loki/loki.yaml':
+    ensure  => file,
+    content => template('loki/loki.yaml.erb'),
+  }
+
+  ~> service { 'loki':
     ensure => running,
     enable => true,
   }
