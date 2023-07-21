@@ -1,12 +1,13 @@
 # @summary Configure Loki instance
 #
 # @param hostname is the hostname for log submission
-# @param tls_account is the account details for requesting the TLS cert
 # @param grafana_password is the password for grafana to access logs
 # @param promtail_password is the password for promtail to submit logs
+# @param aws_access_key_id sets the AWS key to use for Route53 challenge
+# @param aws_secret_access_key sets the AWS secret key to use for the Route53 challenge
+# @param email sets the contact address for the certificate
 # @param retention_enabled controls whether the server evicts old data
 # @param retention_period sets how long to keep data before eviction
-# @param tls_challengealias is the domain to use for TLS cert validation
 # @param backup_target sets the target repo for backups
 # @param backup_watchdog sets the watchdog URL to confirm backups are working
 # @param backup_password sets the encryption key for backup snapshots
@@ -15,12 +16,13 @@
 # @param backup_args sets extra parameters to pass to restic
 class loki::server (
   String $hostname,
-  String $tls_account,
   String $grafana_password,
   String $promtail_password,
+  String $aws_access_key_id,
+  String $aws_secret_access_key,
+  String $email,
   Boolean $retention_enabled = false,
   String $retention_period = '91d',
-  Optional[String] $tls_challengealias = undef,
   Optional[String] $backup_target = undef,
   Optional[String] $backup_watchdog = undef,
   Optional[String] $backup_password = undef,
@@ -51,10 +53,11 @@ class loki::server (
   }
 
   nginx::site { $hostname:
-    proxy_target       => 'http://localhost:3100',
-    tls_challengealias => $tls_challengealias,
-    tls_account        => $tls_account,
-    users              => {
+    proxy_target          => 'http://localhost:3100',
+    aws_access_key_id     => $aws_access_key_id,
+    aws_secret_access_key => $aws_secret_access_key,
+    email                 => $email,
+    users                 => {
       'grafana'  => $grafana_password,
       'promtail' => $promtail_password,
     },
