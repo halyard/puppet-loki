@@ -6,6 +6,7 @@
 # @param aws_access_key_id sets the AWS key to use for Route53 challenge
 # @param aws_secret_access_key sets the AWS secret key to use for the Route53 challenge
 # @param email sets the contact address for the certificate
+# @param users sets extra users to allow for log access
 # @param retention_enabled controls whether the server evicts old data
 # @param retention_period sets how long to keep data before eviction
 # @param backup_target sets the target repo for backups
@@ -21,6 +22,7 @@ class loki::server (
   String $aws_access_key_id,
   String $aws_secret_access_key,
   String $email,
+  Hash[String, String] $users = {},
   Boolean $retention_enabled = false,
   String $retention_period = '91d',
   Optional[String] $backup_target = undef,
@@ -52,15 +54,17 @@ class loki::server (
     enable => true,
   }
 
+  $merged_users = $users + {
+    'grafana'  => $grafana_password,
+    'promtail' => $promtail_password,
+  }
+
   nginx::site { $hostname:
     proxy_target          => 'http://localhost:3100',
     aws_access_key_id     => $aws_access_key_id,
     aws_secret_access_key => $aws_secret_access_key,
     email                 => $email,
-    users                 => {
-      'grafana'  => $grafana_password,
-      'promtail' => $promtail_password,
-    },
+    users                 => $merged_users,
   }
 
   if $backup_target != '' {
