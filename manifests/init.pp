@@ -5,6 +5,7 @@ class loki (
     apt::key { 'loki':
       id     => '0E22EB88E39E12277A7760AE9E439B102CF3C0C6',
       source => 'https://apt.grafana.com/gpg-full.key',
+      server => 'keyserver.ubuntu.com',
     }
 
     -> apt::source { 'loki':
