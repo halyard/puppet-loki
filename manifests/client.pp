@@ -10,6 +10,8 @@ class loki::client (
   Hash[String, String] $logpaths = {},
   Array[String] $syslog_sources = [],
 ) {
+  include loki
+
   package { 'promtail': }
 
   -> file { '/etc/loki/promtail.yaml':

@@ -32,6 +32,8 @@ class loki::server (
   Optional[String] $backup_rclone = undef,
   Optional[Array[String]] $backup_args = undef
 ) {
+  include loki
+
   package { ['loki', 'logcli']: }
 
   -> file { ['/var/lib/loki', '/var/lib/loki/index', '/var/lib/loki/chunks', '/var/lib/loki/wal']:
