@@ -14,6 +14,13 @@ class loki::client (
 
   package { 'promtail': }
 
+  -> file { '/etc/loki':
+    ensure => directory,
+    owner  => root,
+    group  => root,
+    mode   => '0755',
+  }
+
   -> file { '/etc/loki/promtail.yaml':
     ensure  => file,
     content => template('loki/promtail.yaml.erb'),
