@@ -7,7 +7,7 @@ class loki (
       repos    => 'stable main',
       key      => {
         'id'     => '0E22EB88E39E12277A7760AE9E439B102CF3C0C6',
-        'server' => 'pgp.mit.edu',
+        'source' => 'https://apt.grafana.com/gpg-full.key',
       },
     }
   }
