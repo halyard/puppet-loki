@@ -4,11 +4,13 @@
 # @param password sets the promtail user password to submit logs
 # @param logpaths sets additional directories to pull logs from
 # @param syslog_sources sets IPs to expect syslog data from
+# @param journald_retention sets how long to retain local journal data
 class loki::client (
   String $server,
   String $password,
   Hash[String, String] $logpaths = {},
   Array[String] $syslog_sources = [],
+  String $journald_retention = '0',
 ) {
   include loki
 
@@ -29,6 +31,18 @@ class loki::client (
   ~> service { 'promtail':
     ensure => running,
     enable => true,
+  }
+
+  file { '/etc/systemd/journald.conf.d':
+    ensure => directory,
+    owner  => root,
+    group  => root,
+    mode   => '0755',
+  }
+
+  file { '/etc/systemd/journald.conf.d/rotate.conf':
+    ensure  => file,
+    content => template('loki/rotate.conf.erb'),
   }
 
   if $syslog_sources.length > 0 {
