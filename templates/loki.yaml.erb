@@ -44,13 +44,20 @@ storage_config:
   filesystem:
     directory: /var/lib/loki/chunks
 
-table_manager:
-  retention_deletes_enabled: <%= @retention_enabled %>
-  retention_period: <%= @retention_period %>
+<% if @retention_enabled -%>
+compactor:
+  working_directory: /var/lib/loki/retention
+  compaction_interval: 10m
+  retention_enabled: true
+  retention_delete_delay: 2h
+  retention_delete_worker_count: 150
+  delete_request_store: filesystem
+<% end -%>
 
 limits_config:
 <% if @retention_enabled -%>
   max_query_lookback: <%= @retention_period %>
+  retention_period: <%= @retention_period %>
 <% end -%>
   reject_old_samples: true
   reject_old_samples_max_age: 168h
