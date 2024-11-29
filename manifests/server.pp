@@ -69,7 +69,7 @@ class loki::server (
     users                 => $merged_users,
   }
 
-  if $backup_target != '' {
+  if $backup_target != undef {
     backup::repo { 'loki':
       source        => '/var/lib/loki',
       target        => $backup_target,
