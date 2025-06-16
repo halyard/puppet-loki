@@ -33,6 +33,18 @@ class loki::client (
     enable => true,
   }
 
+  file { '/etc/systemd/system/promtail.service.d':
+    ensure => directory,
+    owner  => root,
+    group  => root,
+    mode   => '0755',
+  }
+
+  file { '/etc/systemd/system/promtail.service.d/override.conf':
+    ensure  => file,
+    source => 'puppet:///modules/loki/override.conf',
+  }
+
   file { '/etc/systemd/journald.conf.d':
     ensure => directory,
     owner  => root,
