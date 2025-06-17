@@ -41,7 +41,7 @@ class loki::client (
   }
 
   file { '/etc/systemd/system/promtail.service.d/override.conf':
-    ensure  => file,
+    ensure => file,
     source => 'puppet:///modules/loki/override.conf',
   }
 
