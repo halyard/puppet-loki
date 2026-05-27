@@ -1,6 +1,6 @@
 {
   "name": "halyard-loki",
-  "version": "0.0.63",
+  "version": "0.0.64",
   "author": "Les Aker",
   "license": "MIT",
   "summary": "Configure loki instance",
